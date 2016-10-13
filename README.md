@@ -1,7 +1,8 @@
 # Website Boilerplate...
 
-## Install Node and Gulp
+## Install Node, scss and Gulp
 1. Install Node.js globally from http://nodejs.org (check node -v and npm -v)
+2. install sass globally (check sass -v)
 2. Install gulp globally (check gulp -v)
 
 ## Navigate To Project Directory
