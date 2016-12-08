@@ -11,6 +11,7 @@ var gulp         = require('gulp'),
     cache        = require('gulp-cache'),
     del          = require('del'),
     runSequence  = require('run-sequence');
+    pug          = require('gulp-pug');
 
 
 // Start browserSync server
@@ -37,9 +38,23 @@ gulp.task('sass', function() {
 })
 
 
+// Jade/Pug
+gulp.task('pug', function() {
+  return gulp.src('app/templates/*.pug')
+    .pipe(pug({
+        pretty: true
+    }))
+    .pipe(gulp.dest('app'))
+    .pipe(browserSync.reload({ 
+        stream: true
+    }));
+});
+
+
 // Watchers
 gulp.task('watch', function() {
     gulp.watch('app/scss/**/*.scss', ['sass']);
+    gulp.watch('app/templates/**/*.pug', ['pug']);
     gulp.watch('app/*.html', browserSync.reload);
     gulp.watch('app/js/**/*.js', browserSync.reload);
 })
@@ -87,7 +102,7 @@ gulp.task('clean:dist', function() {
 // Build Sequences
 gulp.task('default', function(callback) {
     runSequence(
-        ['sass', 'browserSync', 'watch'],
+        ['sass', 'pug', 'browserSync', 'watch'],
         callback
     )
 })
@@ -96,6 +111,7 @@ gulp.task('build', function(callback) {
     runSequence(
         'clean:dist',
         'sass',
+        'pug',
         ['useref', 'images', 'fonts'],
         callback
     )
