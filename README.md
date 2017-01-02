@@ -6,7 +6,7 @@
 2. Install gulp globally (check gulp -v)
 
 ## Navigate To Project Directory
-1. npm install gulp gulp-sass gulp-pug gulp-autoprefixer gulp-sourcemaps gulp-cssnano gulp-uglify gulp-useref gulp-if run-sequence gulp-imagemin gulp-cache del browser-sync --save-dev
+1. npm install gulp gulp-sass gulp-pug gulp-changed gulp-pug-inheritance gulp-autoprefixer gulp-sourcemaps gulp-cssnano gulp-uglify gulp-useref gulp-if run-sequence gulp-imagemin gulp-cache del browser-sync --save-dev
 2. gulp (during development)
 3. gulp build (Create dist folder)
 4. gulp clean (cleans the dist folder)

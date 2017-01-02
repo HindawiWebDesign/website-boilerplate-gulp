@@ -1,17 +1,19 @@
-var gulp         = require('gulp'),
-    sass         = require('gulp-sass'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sourcemaps   = require('gulp-sourcemaps'),
-    browserSync  = require('browser-sync'),
-    useref       = require('gulp-useref'),
-    uglify       = require('gulp-uglify'),
-    gulpIf       = require('gulp-if'),
-    cssnano      = require('gulp-cssnano'),
-    imagemin     = require('gulp-imagemin'),
-    cache        = require('gulp-cache'),
-    del          = require('del'),
-    runSequence  = require('run-sequence');
-    pug          = require('gulp-pug');
+var gulp           = require('gulp'),
+    sass           = require('gulp-sass'),
+    autoprefixer   = require('gulp-autoprefixer'),
+    sourcemaps     = require('gulp-sourcemaps'),
+    browserSync    = require('browser-sync'),
+    useref         = require('gulp-useref'),
+    uglify         = require('gulp-uglify'),
+    gulpIf         = require('gulp-if'),
+    cssnano        = require('gulp-cssnano'),
+    imagemin       = require('gulp-imagemin'),
+    cache          = require('gulp-cache'),
+    del            = require('del'),
+    runSequence    = require('run-sequence');
+    pug            = require('gulp-pug');
+    changed        = require('gulp-changed');
+    pugInheritance = require('gulp-pug-inheritance');
 
 
 // Start browserSync server
@@ -40,14 +42,13 @@ gulp.task('sass', function() {
 
 // Jade/Pug
 gulp.task('pug', function() {
-  return gulp.src('app/templates/*.pug')
+    return gulp.src('app/views/**/!(_)*.pug')
+    .pipe(changed('app', {extension: '.html'}))
+    .pipe(pugInheritance({basedir: 'app/views', skip: 'node_modules'}))
     .pipe(pug({
         pretty: true
     }))
     .pipe(gulp.dest('app'))
-    .pipe(browserSync.reload({ 
-        stream: true
-    }));
 });
 
 
